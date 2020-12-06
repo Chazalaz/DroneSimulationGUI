@@ -17,11 +17,7 @@ public class MyCanvas{
     int yCanvasSize = 512;
     GraphicsContext gc;
 
-//    /**
-//     * onstructor sets up relevant Graphics context and size of canvas
-//     * @param g
-//     * @param cs
-//     */
+
     public MyCanvas(GraphicsContext g, int xcs, int ycs) {
         gc = g;
         xCanvasSize = xcs;
