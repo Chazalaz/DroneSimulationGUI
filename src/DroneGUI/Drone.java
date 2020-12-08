@@ -16,13 +16,6 @@ public class Drone {
         dir = d;
     }
 
-//    public int getSize(){
-//        Image image = Toolkit.getDefaultToolkit().getImage(droneImage.getAbsolutePath());
-//        double width = image.getWidth();
-//        double height = image.getHeight();
-//        return getSize();
-//    }
-
     /** The code above defines variables that are used later in the code,
     * coX and coY are the x and y coordinates for the drone where dir is
     * the direction that the drone is given.

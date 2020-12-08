@@ -17,11 +17,13 @@ import javafx.stage.Stage;
 
 import javax.swing.border.Border;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GUI_Interface extends Application {
     private int canvasSize = 512;
     Group group;
     public MyCanvas myCan;
+    public Canvas canvas;
     DroneArena battleArena;
     private VBox infoPane;
     BorderPane bpane;
@@ -34,7 +36,7 @@ public class GUI_Interface extends Application {
         bpane = new BorderPane();
         bpane.setTop(setMenu());
         group = new Group();
-        Canvas canvas = new Canvas(canvasSize, canvasSize);
+        canvas = new Canvas(canvasSize, canvasSize);
         myCan = new MyCanvas(canvas.getGraphicsContext2D(), canvasSize, canvasSize);
         battleArena = new DroneArena(myCan.getXCanvasSize(), myCan.getYCanvasSize());
 
@@ -52,41 +54,44 @@ public class GUI_Interface extends Application {
     HBox setButtons() {
         Random random = new Random();
         Button addButton = new Button("Add Drone");
-        Button moveButton = new Button("Move Drone");
+        Button obstacleButton = new Button("Add Obstacle");
         Button stopButton = new Button("Stop Simulation");
+        Button newArena = new Button("New Arena");
+
 
         addButton.setOnAction(actionEvent -> {
             battleArena.addDrone();
             updateStatus();
             battleArena.drawSystem(myCan);
+        });
+
+        obstacleButton.setOnAction(actionEvent ->{
 
         });
 
-//        moveButton.setOnAction(actionEvent ->{
-//            .tryToMove();
-//
-//        });
-//
-//        stopButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                on = false;
-//                System.out.println(on);
-//                add(on);
-//
-//                System.err.println("SYSTEM WORKS");
-//            }
-//        });
+        newArena.setOnAction(actionEvent -> {
+            newArena();
+        });
 
-        return new HBox(addButton, moveButton, stopButton);
+        stopButton.setOnAction(actionEvent -> {
+                System.exit(0);
+        });
+
+        return new HBox(addButton, obstacleButton, newArena, stopButton);
     }
 
-//    public void add(boolean run){
-//        battleArena.addDrone();
-//        updateStatus();
-//        battleArena.drawSystem(myCan);
-//        System.out.println(battleArena.toString());
-//    }
+    HBox newArena(){
+        Button submit = new Button("Submit");
+        Label labelXCo = new Label("Enter X value: ");
+        TextField textFieldX = new TextField();
+        Label labelYCo = new Label("Enter Y value: ");
+        TextField textFieldY = new TextField();
+        Label label = new Label();
+
+        label.setText("The values you entered are: " + textFieldX.getText() + ", " + textFieldY);
+
+        return new HBox(submit);
+    }
 
     private void drawStatus() {
         infoPane = new VBox();
@@ -100,7 +105,6 @@ public class GUI_Interface extends Application {
         infoPane.getChildren().add(updateLabel);
     }
 
-
     MenuBar setMenu() {
         MenuBar mBar = new MenuBar();
         Menu mHelp = new Menu("Information");
@@ -110,7 +114,7 @@ public class GUI_Interface extends Application {
         MenuItem exit = new MenuItem("Exit");
 
         help.setOnAction(actionEvent ->  {
-                showMessage("Help", "Click the 'Add Drone' button to add a new drone, 'Move Drone' to move the drones and 'Stop Simulation' to exit the program");
+                showMessage("Help", "Click the 'Add Drone' button to add a new drone, 'Add Obstacle' to add obstacles, 'New Arena' to create a new arena and 'Stop Simulation' to exit the program");
         });
         mHelp.getItems().addAll(help);
 
