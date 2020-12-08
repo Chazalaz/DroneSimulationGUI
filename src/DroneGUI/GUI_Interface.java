@@ -25,7 +25,6 @@ public class GUI_Interface extends Application {
     DroneArena battleArena;
     private VBox infoPane;
     BorderPane bpane;
-    boolean on = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -49,6 +48,7 @@ public class GUI_Interface extends Application {
         primaryStage.show();
     }
 
+
     HBox setButtons() {
         Random random = new Random();
         Button addButton = new Button("Add Drone");
@@ -62,21 +62,21 @@ public class GUI_Interface extends Application {
 
         });
 
-        moveButton.setOnAction(actionEvent ->{
-            Drone.mov
-
-        });
-
-        stopButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                on = false;
-                System.out.println(on);
-                add(on);
-
-                System.err.println("SYSTEM WORKS");
-            }
-        });
+//        moveButton.setOnAction(actionEvent ->{
+//            .tryToMove();
+//
+//        });
+//
+//        stopButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                on = false;
+//                System.out.println(on);
+//                add(on);
+//
+//                System.err.println("SYSTEM WORKS");
+//            }
+//        });
 
         return new HBox(addButton, moveButton, stopButton);
     }
@@ -109,27 +109,19 @@ public class GUI_Interface extends Application {
         Menu mFile = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
 
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        help.setOnAction(actionEvent ->  {
                 showMessage("Help", "Click the 'Add Drone' button to add a new drone, 'Move Drone' to move the drones and 'Stop Simulation' to exit the program");
-            }
         });
         mHelp.getItems().addAll(help);
 
-        mAbout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        mAbout.setOnAction(actionEvent ->  {
                 showAbout();
-            }
+
         });
         mHelp.getItems().addAll(mAbout);
 
-        exit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        exit.setOnAction(actionEvent ->  {
                 System.exit(0);
-            }
         });
 
         mFile.getItems().addAll(exit);

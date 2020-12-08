@@ -1,5 +1,7 @@
 package DroneGUI;
 
+import javafx.scene.image.Image;
+
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -61,7 +63,33 @@ public class DroneArena {
         return s.toString();
     }
 
+    public Drone getDroneAt(int X, int Y){
+        Drone d = null;
+        for(Drone a : droneList){
+            if(a.isHere(X, Y)){
+                return a = d;
+            }else{
+                return d;
+            }
+        }
+        return d;
+    }
+
+    public boolean canMoveHere(int valX, int valY){
+        return getDroneAt(valX, valY) == null && valX < arenaX && valY < arenaY && valX >= 0 && valY >= 0;
+    }
+
+    public void moveAllDrones(){
+        for(Drone d : droneList){
+            d.tryToMove(this);
+        }
+    }
+
+
     public void drawSystem(MyCanvas mc) {
+        for (Drone d : droneList) {
+            d.displayDrone(mc);
+        }
     }
     /** This toString uses the StringBuilder to create a new string s, this string then uses arenaX and arenaY to show
     * the size of the arena that was created. It then uses a for loop to iterate through the droneList and appends the

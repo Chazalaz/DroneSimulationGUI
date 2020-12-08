@@ -2,11 +2,26 @@ package DroneGUI;
 
 import javafx.scene.image.Image;
 
+import java.awt.*;
+
 public class Drone {
     public int coX;
     public int coY;
     public Direction dir;
     Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
+
+    Drone(int x, int y, Direction d){
+        coX = x;
+        coY = y;
+        dir = d;
+    }
+
+//    public int getSize(){
+//        Image image = Toolkit.getDefaultToolkit().getImage(droneImage.getAbsolutePath());
+//        double width = image.getWidth();
+//        double height = image.getHeight();
+//        return getSize();
+//    }
 
     /** The code above defines variables that are used later in the code,
     * coX and coY are the x and y coordinates for the drone where dir is
@@ -37,14 +52,41 @@ public class Drone {
     * direction that the drone has been given, these are used in later functions and methods
      */
 
-
-    Drone(int x, int y, Direction d){
-        coX = x;
-        coY = y;
-        dir = d;
+    public void tryToMove(DroneArena a){
+        switch (dir){
+            case North:
+                if(a.canMoveHere(coX, coY + 1)){
+                    coY++;
+                }else{
+                    dir = dir.nextDirection();
+                }
+                break;
+            case South:
+                if (a.canMoveHere(coX, coY - 1)) {
+                    coY--;
+                } else {
+                    dir = dir.nextDirection();
+                }
+                break;
+            case East:
+                if (a.canMoveHere(coX + 1, coY)) {
+                    coX++;
+                } else {
+                    dir = dir.nextDirection();
+                }
+                break;
+            case West:
+                if (a.canMoveHere(coX - 1, coY)) {
+                    coX--;
+                } else {
+                    dir = dir.nextDirection();
+                }
+        }
     }
-    /** This code was added at the beginning of the project to initialise new variables.
-     */
+
+    public boolean isHere(int X, int Y){
+        return coX == X && coY == Y;
+    }
 
 
     public String toString(){
