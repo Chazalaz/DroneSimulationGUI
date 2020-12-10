@@ -2,13 +2,10 @@ package DroneGUI;
 
 import javafx.scene.image.Image;
 
-import java.awt.*;
-
 public class Drone {
     public int coX;
     public int coY;
     public Direction dir;
-    DroneArena droneID;
     Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
 
     Drone(int x, int y, Direction d){
@@ -17,13 +14,18 @@ public class Drone {
         dir = d;
     }
 
+//    public void Obstacle(int x, int y){
+//        coX = x;
+//        coY = y;
+//    }
+
     /** The code above defines variables that are used later in the code,
     * coX and coY are the x and y coordinates for the drone where dir is
     * the direction that the drone is given.
      */
 
-    public void displayDrone(MyCanvas c) {
-        c.drawImage(droneImage, coX, coY, 40);
+    public void displayDrone(MyCanvas mc) {
+        mc.drawImage(droneImage, coX, coY, 10);
     }
     /** This code defines a variable in the ConsoleCanvas file, it then defines and initialises
     * a char type variable which is a visual representation of the drones on the canvas and a function
@@ -84,7 +86,7 @@ public class Drone {
 
 
     public String toString(){
-        return "Drone " + droneID + " is at: " + coX + ", " + coY + "\nWith direction: " + dir.toString() + ".";
+        return "Drone is at: " + coX + ", " + coY + "\nWith direction: " + dir.toString() + ".";
     }
 
     /** This toString function takes the coordinates of the drones and concatenates them into

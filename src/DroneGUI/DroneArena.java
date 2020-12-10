@@ -9,10 +9,11 @@ public class DroneArena {
     int arenaX;
     int arenaY;
     ArrayList<Drone> droneList = new ArrayList<Drone>();
+    ArrayList<Drone> obstacleList = new ArrayList<>();
     Drone d;
+    Drone o;
     int valX;
     int valY;
-    public int droneID = 0;
 
     /** Above are predefined variables, arenaX and arenaY are coordinates of the drone arena, created an arraylist for
     * DroneGUI.Drone to store all the Drones and their information. Defined a drone: d. Finally defined valX and valY which
@@ -46,7 +47,6 @@ public class DroneArena {
             valY = random.nextInt(arenaY);
             d = new Drone(valX, valY, Direction.getRandomDir());
             droneList.add(d);
-            ++droneID;
         }
     }
     /** The addDrone function adds a drone to the droneList, it first creates a variable called random through of type
@@ -56,6 +56,18 @@ public class DroneArena {
     * equal to null to make sure the coordinates are valid, it then adds d as a new DroneGUI.Drone with the newly created
     * coordinates, as well as the randomly created direction seen later, it then adds a drone d to droneList
      */
+
+//    public void addObstacle() {
+//        Random random;
+//        random = new Random();
+//
+//        if(obstacleList.size() < (arenaX * arenaY)){
+//            valX = random.nextInt(arenaX);
+//            valY = random.nextInt(arenaY);
+//            o = new Drone.Obstacle(valX, valY);
+//            obstacleList.add(d);
+//        }
+//    }
 
     public String toString() {
         StringBuilder s = new StringBuilder("The arena size is " + arenaX + " x " + arenaY + " and: " + "\n");

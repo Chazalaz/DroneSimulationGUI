@@ -21,7 +21,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GUI_Interface extends Application {
-    private int canvasSizeX, canvasSizeY;
+    int canvasSizeX = 400;
+    int canvasSizeY = 400;
     Group group;
     public MyCanvas myCan;
     public Canvas canvas;
@@ -37,12 +38,12 @@ public class GUI_Interface extends Application {
 
         bpane = new BorderPane();
         group = new Group();
+
+
         canvas = new Canvas(canvasSizeX, canvasSizeY);
-
-        newArena();
         myCan = new MyCanvas(canvas.getGraphicsContext2D(), canvasSizeX, canvasSizeY);
-        battleArena = new DroneArena(myCan.getXCanvasSize(), myCan.getYCanvasSize());
-
+        battleArena = new DroneArena(canvasSizeX, canvasSizeY);
+        myCan.setFillColour(canvasSizeX, canvasSizeY);
         group.getChildren().add(canvas);
         drawStatus();
 
@@ -73,7 +74,8 @@ public class GUI_Interface extends Application {
         });
 
         newArena.setOnAction(actionEvent -> {
-                newArena();
+            myCan.clearCanvas();
+            enterCoords();
         });
 
         stopButton.setOnAction(actionEvent -> {
@@ -89,13 +91,16 @@ public class GUI_Interface extends Application {
 
         x = JOptionPane.showInputDialog(xCo, "Enter X value");
         y = JOptionPane.showInputDialog(yCo, "Enter Y value");
-    }
-
-    public void newArena(){
-        enterCoords();
         canvasSizeX = Integer.parseInt(x);
         canvasSizeY = Integer.parseInt(y);
+        canvas = new Canvas(canvasSizeX, canvasSizeY);
+        myCan = new MyCanvas(canvas.getGraphicsContext2D(), canvasSizeX, canvasSizeY);
+        battleArena = new DroneArena(canvasSizeX, canvasSizeY);
+        myCan.setFillColour(canvasSizeX, canvasSizeY);
+        group.getChildren().add(canvas);
+        drawStatus();
     }
+
 
     private void drawStatus() {
         infoPane = new VBox();
@@ -112,9 +117,9 @@ public class GUI_Interface extends Application {
     MenuBar setMenu() {
         MenuBar mBar = new MenuBar();
         Menu mHelp = new Menu("Information");
-        MenuItem help = new MenuItem("Help");
-        MenuItem mAbout = new MenuItem("About");
         Menu mFile = new Menu("File");
+        MenuItem help = new MenuItem("Help");
+        MenuItem about = new MenuItem("About");
         MenuItem exit = new MenuItem("Exit");
 
         help.setOnAction(actionEvent ->  {
@@ -122,16 +127,14 @@ public class GUI_Interface extends Application {
         });
         mHelp.getItems().addAll(help);
 
-        mAbout.setOnAction(actionEvent ->  {
+        about.setOnAction(actionEvent ->  {
                 showAbout();
-
         });
-        mHelp.getItems().addAll(mAbout);
+        mHelp.getItems().addAll(about);
 
         exit.setOnAction(actionEvent ->  {
                 System.exit(0);
         });
-
         mFile.getItems().addAll(exit);
         mBar.getMenus().addAll(mFile, mHelp);
         return mBar;

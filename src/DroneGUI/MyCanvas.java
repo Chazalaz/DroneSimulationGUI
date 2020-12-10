@@ -78,7 +78,7 @@ public class MyCanvas{
      * set the fill colour to color c
      * @param c
      */
-    public void setFillColour (Color c) {
+    public void setFillColour (int xCanvasSize, int yCanvasSize) {
         gc.setFill(Color.GHOSTWHITE);
         gc.fillRect(0, 0, xCanvasSize, yCanvasSize);
         gc.setStroke(Color.BLACK);
@@ -91,10 +91,10 @@ public class MyCanvas{
      * @param rad
      * @param col
      */
-    public void showCircle(double x, double y, double rad, char col) {
-        setFillColour(colFromChar(col));			// set the fill colour
-        showCircle(x, y, rad);						// show the circle
-    }
+//    public void showCircle(double x, double y, double rad, char col) {
+//        setFillColour(colFromChar(col));			// set the fill colour
+//        showCircle(x, y, rad);						// show the circle
+//    }
 
     /**
      * show the ball in the current colour at x,y size rad
