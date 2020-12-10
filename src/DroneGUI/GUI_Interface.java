@@ -15,49 +15,52 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import javax.swing.border.Border;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GUI_Interface extends Application {
-    private int canvasSize = 512;
+    private int canvasSizeX, canvasSizeY;
     Group group;
     public MyCanvas myCan;
     public Canvas canvas;
     DroneArena battleArena;
     private VBox infoPane;
     BorderPane bpane;
+    JFrame xCo, yCo;
+    String x, y;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Drone Simulation");
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         bpane = new BorderPane();
-        bpane.setTop(setMenu());
         group = new Group();
-        canvas = new Canvas(canvasSize, canvasSize);
-        myCan = new MyCanvas(canvas.getGraphicsContext2D(), canvasSize, canvasSize);
+        canvas = new Canvas(canvasSizeX, canvasSizeY);
+
+        newArena();
+        myCan = new MyCanvas(canvas.getGraphicsContext2D(), canvasSizeX, canvasSizeY);
         battleArena = new DroneArena(myCan.getXCanvasSize(), myCan.getYCanvasSize());
 
         group.getChildren().add(canvas);
         drawStatus();
+
+        bpane.setTop(setMenu());
         bpane.setCenter(group);
         bpane.setRight(infoPane);
         bpane.setBottom(setButtons());
 
-        primaryStage.setScene(new Scene(bpane, canvasSize * 2, canvasSize * 1.8));
+        primaryStage.setScene(new Scene(bpane, canvasSizeX * 2.5, canvasSizeY * 2.2));
         primaryStage.show();
     }
 
 
     HBox setButtons() {
-        Random random = new Random();
         Button addButton = new Button("Add Drone");
         Button obstacleButton = new Button("Add Obstacle");
         Button stopButton = new Button("Stop Simulation");
         Button newArena = new Button("New Arena");
-
 
         addButton.setOnAction(actionEvent -> {
             battleArena.addDrone();
@@ -70,7 +73,7 @@ public class GUI_Interface extends Application {
         });
 
         newArena.setOnAction(actionEvent -> {
-            newArena();
+                newArena();
         });
 
         stopButton.setOnAction(actionEvent -> {
@@ -80,17 +83,18 @@ public class GUI_Interface extends Application {
         return new HBox(addButton, obstacleButton, newArena, stopButton);
     }
 
-    HBox newArena(){
-        Button submit = new Button("Submit");
-        Label labelXCo = new Label("Enter X value: ");
-        TextField textFieldX = new TextField();
-        Label labelYCo = new Label("Enter Y value: ");
-        TextField textFieldY = new TextField();
-        Label label = new Label();
+    public void enterCoords(){
+        xCo = new JFrame();
+        yCo = new JFrame();
 
-        label.setText("The values you entered are: " + textFieldX.getText() + ", " + textFieldY);
+        x = JOptionPane.showInputDialog(xCo, "Enter X value");
+        y = JOptionPane.showInputDialog(yCo, "Enter Y value");
+    }
 
-        return new HBox(submit);
+    public void newArena(){
+        enterCoords();
+        canvasSizeX = Integer.parseInt(x);
+        canvasSizeY = Integer.parseInt(y);
     }
 
     private void drawStatus() {

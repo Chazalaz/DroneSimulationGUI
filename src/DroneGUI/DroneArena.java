@@ -12,6 +12,7 @@ public class DroneArena {
     Drone d;
     int valX;
     int valY;
+    public int droneID = 0;
 
     /** Above are predefined variables, arenaX and arenaY are coordinates of the drone arena, created an arraylist for
     * DroneGUI.Drone to store all the Drones and their information. Defined a drone: d. Finally defined valX and valY which
@@ -45,6 +46,7 @@ public class DroneArena {
             valY = random.nextInt(arenaY);
             d = new Drone(valX, valY, Direction.getRandomDir());
             droneList.add(d);
+            ++droneID;
         }
     }
     /** The addDrone function adds a drone to the droneList, it first creates a variable called random through of type
@@ -84,7 +86,6 @@ public class DroneArena {
             d.tryToMove(this);
         }
     }
-
 
     public void drawSystem(MyCanvas mc) {
         for (Drone d : droneList) {

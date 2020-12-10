@@ -79,7 +79,10 @@ public class MyCanvas{
      * @param c
      */
     public void setFillColour (Color c) {
-        gc.setFill(c);
+        gc.setFill(Color.GHOSTWHITE);
+        gc.fillRect(0, 0, xCanvasSize, yCanvasSize);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(0, 0, xCanvasSize, yCanvasSize);
     }
     /**
      * show the ball at position x,y , radius r in colour defined by col

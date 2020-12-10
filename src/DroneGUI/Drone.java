@@ -8,6 +8,7 @@ public class Drone {
     public int coX;
     public int coY;
     public Direction dir;
+    DroneArena droneID;
     Image droneImage = new Image(getClass().getResourceAsStream("circle.png"));
 
     Drone(int x, int y, Direction d){
@@ -83,7 +84,7 @@ public class Drone {
 
 
     public String toString(){
-        return "DroneGUI.Drone is at: " + coX + ", " + coY + "\nWith direction: " + dir.toString() + ".";
+        return "Drone " + droneID + " is at: " + coX + ", " + coY + "\nWith direction: " + dir.toString() + ".";
     }
 
     /** This toString function takes the coordinates of the drones and concatenates them into
