@@ -14,6 +14,7 @@ public class DroneArena {
     Obstacle o;
     int valX;
     int valY;
+    Drone count;
 
     /** Above are predefined variables, arenaX and arenaY are coordinates of the drone arena, created an arraylist for
     * DroneGUI.Drone to store all the Drones and their information. Defined a drone: d. Finally defined valX and valY which
@@ -47,6 +48,7 @@ public class DroneArena {
             valY = random.nextInt(arenaY);
             d = new Drone(valX, valY, Direction.getRandomDir());
             droneList.add(d);
+
         }
     }
     /** The addDrone function adds a drone to the droneList, it first creates a variable called random through of type
@@ -74,6 +76,9 @@ public class DroneArena {
         for (Drone d : droneList) {// All the drones in the droneList will be used here and will show all their information
            s.append(d.toString()).append("\n");
         }
+        for(Obstacle o : obstacleList){
+            s.append(o.toString()).append("\n");
+        }
         return s.toString();
     }
 
@@ -92,6 +97,16 @@ public class DroneArena {
     public boolean canMoveHere(int valX, int valY){
         return getDroneAt(valX, valY) == null && valX < arenaX && valY < arenaY && valX >= 0 && valY >= 0;
     }
+
+    public void moveAllDrones(){
+        for(Drone d : droneList){
+            d.tryToMove(this);
+        }
+    }
+    /** This function attempts to move all the drones in the drone list which are iterated through with a for loop
+     * it uses the function tryToMove, which is found in Drone
+     */
+
 
     public void drawSystem(MyCanvas mc) {
         for (Drone d : droneList) {

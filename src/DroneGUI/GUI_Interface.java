@@ -1,5 +1,6 @@
 package DroneGUI;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +32,7 @@ public class GUI_Interface extends Application {
     BorderPane bpane;
     JFrame xCo, yCo;
     String x, y;
+    boolean animation = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -52,6 +54,15 @@ public class GUI_Interface extends Application {
         bpane.setRight(infoPane);
         bpane.setBottom(setButtons());
 
+        new AnimationTimer(){
+            public void handle(long currentNanoTime){
+                if(animation){
+                    battleArena.moveAllDrones();
+                    displaySystem();
+                }
+            }
+        }.start();
+
         primaryStage.setScene(new Scene(bpane, canvasSizeX * 2.5, canvasSizeY * 2.2));
         primaryStage.show();
     }
@@ -62,6 +73,8 @@ public class GUI_Interface extends Application {
         Button obstacleButton = new Button("Add Obstacle");
         Button stopButton = new Button("Stop Simulation");
         Button newArena = new Button("New Arena");
+        Button start = new Button("Start Animation");
+        Button stop = new Button ("Stop Animation");
 
         addButton.setOnAction(actionEvent -> {
             battleArena.addDrone();
@@ -84,7 +97,15 @@ public class GUI_Interface extends Application {
                 System.exit(0);
         });
 
-        return new HBox(addButton, obstacleButton, newArena, stopButton);
+        start.setOnAction(actionEvent -> {
+            animation = true;
+        });
+
+        start.setOnAction(actionEvent -> {
+            animation = false;
+        });
+
+        return new HBox(addButton, obstacleButton, newArena, start, stop, stopButton);
     }
 
     public void enterCoords(){
@@ -100,9 +121,9 @@ public class GUI_Interface extends Application {
         battleArena = new DroneArena(canvasSizeX, canvasSizeY);
         myCan.setFillColour(canvasSizeX, canvasSizeY);
         group.getChildren().add(canvas);
-        drawStatus();
-    }
+        updateStatus();
 
+    }
 
     private void drawStatus() {
         infoPane = new VBox();
@@ -114,6 +135,12 @@ public class GUI_Interface extends Application {
         infoPane.getChildren().clear();
         Label updateLabel = new Label(battleArena.toString());
         infoPane.getChildren().add(updateLabel);
+    }
+
+    public void displaySystem(){
+        myCan.clearCanvas();
+        battleArena.drawSystem(myCan);
+        updateStatus();
     }
 
     MenuBar setMenu() {
@@ -153,6 +180,19 @@ public class GUI_Interface extends Application {
         alert.setContentText(Content);
         alert.showAndWait();
     }
+
+    public void animation() {
+        int counter = 10;
+        for (int i = 0; i < counter; i++) {
+            battleArena.moveAllDrones();
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
     public static void main(String[] args) {
