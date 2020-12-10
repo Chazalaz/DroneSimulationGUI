@@ -70,7 +70,9 @@ public class GUI_Interface extends Application {
         });
 
         obstacleButton.setOnAction(actionEvent ->{
-
+            battleArena.addObstacle();
+            updateStatus();
+            battleArena.drawObs(myCan);
         });
 
         newArena.setOnAction(actionEvent -> {

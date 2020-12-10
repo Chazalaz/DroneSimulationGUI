@@ -14,11 +14,6 @@ public class Drone {
         dir = d;
     }
 
-//    public void Obstacle(int x, int y){
-//        coX = x;
-//        coY = y;
-//    }
-
     /** The code above defines variables that are used later in the code,
     * coX and coY are the x and y coordinates for the drone where dir is
     * the direction that the drone is given.
@@ -47,38 +42,6 @@ public class Drone {
     /** The three codes above are setters and getters for the coordinates of the drone and the
     * direction that the drone has been given, these are used in later functions and methods
      */
-
-    public void tryToMove(DroneArena a){
-        switch (dir){
-            case North:
-                if(a.canMoveHere(coX, coY + 1)){
-                    coY++;
-                }else{
-                    dir = dir.nextDirection();
-                }
-                break;
-            case South:
-                if (a.canMoveHere(coX, coY - 1)) {
-                    coY--;
-                } else {
-                    dir = dir.nextDirection();
-                }
-                break;
-            case East:
-                if (a.canMoveHere(coX + 1, coY)) {
-                    coX++;
-                } else {
-                    dir = dir.nextDirection();
-                }
-                break;
-            case West:
-                if (a.canMoveHere(coX - 1, coY)) {
-                    coX--;
-                } else {
-                    dir = dir.nextDirection();
-                }
-        }
-    }
 
     public boolean isHere(int X, int Y){
         return coX == X && coY == Y;

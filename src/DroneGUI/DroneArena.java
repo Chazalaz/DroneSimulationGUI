@@ -9,9 +9,9 @@ public class DroneArena {
     int arenaX;
     int arenaY;
     ArrayList<Drone> droneList = new ArrayList<Drone>();
-    ArrayList<Drone> obstacleList = new ArrayList<>();
+    ArrayList<Obstacle> obstacleList = new ArrayList<>();
     Drone d;
-    Drone o;
+    Obstacle o;
     int valX;
     int valY;
 
@@ -57,17 +57,17 @@ public class DroneArena {
     * coordinates, as well as the randomly created direction seen later, it then adds a drone d to droneList
      */
 
-//    public void addObstacle() {
-//        Random random;
-//        random = new Random();
-//
-//        if(obstacleList.size() < (arenaX * arenaY)){
-//            valX = random.nextInt(arenaX);
-//            valY = random.nextInt(arenaY);
-//            o = new Drone.Obstacle(valX, valY);
-//            obstacleList.add(d);
-//        }
-//    }
+    public void addObstacle() {
+        Random random;
+        random = new Random();
+
+        if(obstacleList.size() < (arenaX * arenaY)){
+            valX = random.nextInt(arenaX);
+            valY = random.nextInt(arenaY);
+            o = new Obstacle(valX, valY, Direction.getRandomDir());
+            obstacleList.add(o);
+        }
+    }
 
     public String toString() {
         StringBuilder s = new StringBuilder("The arena size is " + arenaX + " x " + arenaY + " and: " + "\n");
@@ -93,15 +93,15 @@ public class DroneArena {
         return getDroneAt(valX, valY) == null && valX < arenaX && valY < arenaY && valX >= 0 && valY >= 0;
     }
 
-    public void moveAllDrones(){
-        for(Drone d : droneList){
-            d.tryToMove(this);
-        }
-    }
-
     public void drawSystem(MyCanvas mc) {
         for (Drone d : droneList) {
             d.displayDrone(mc);
+        }
+    }
+
+    public void drawObs(MyCanvas mc){
+        for (Obstacle o : obstacleList){
+            o.displayObstacle(mc);
         }
     }
     /** This toString uses the StringBuilder to create a new string s, this string then uses arenaX and arenaY to show
