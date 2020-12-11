@@ -22,15 +22,4 @@ public enum Direction {
     * for the drones, this direction is given to a single drone, the next drone is given
     * another random direction
      */
-
-    public Direction nextDirection() {
-        int sizeOf = values().length - 1;
-        return ordinal() == sizeOf ? values()[0] : values()[ordinal() + 1];
-    }
-
-    /** This function takes the values() method from getRandomDir and equals it to a new int variable
-    * the function then returns ordinal which is the position in the enum declarations above. It then uses
-    * a ternary operator to see if ordinal is equal to sizeOf, if it is then ordinal is equalled to index
-    * 0 in values(), else it is equal to ordinal's initial value plus 1.
-     */
 }

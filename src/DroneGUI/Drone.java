@@ -23,34 +23,36 @@ public class Drone {
      */
 
     public void tryToMove(DroneArena a){
+
         switch (dir){
             case North:
-                if(a.canMoveHere(coX, coY + 1)){
+                if(a.canMoveHere(coX, coY + 20)) {
                     coY++;
                 }else{
-                    dir = dir.nextDirection();
+                    dir = Direction.getRandomDir();
                 }
                 break;
             case South:
-                if (a.canMoveHere(coX, coY - 1)) {
+                if (a.canMoveHere(coX, coY - 20)) {
                     coY--;
-                } else {
-                    dir = dir.nextDirection();
+                }else{
+                    dir = Direction.getRandomDir();
                 }
                 break;
             case East:
-                if (a.canMoveHere(coX + 1, coY)) {
+                if (a.canMoveHere(coX + 20, coY)) {
                     coX++;
-                } else {
-                    dir = dir.nextDirection();
+                }else{
+                    dir = Direction.getRandomDir();
                 }
                 break;
             case West:
-                if (a.canMoveHere(coX - 1, coY)) {
+                if (a.canMoveHere(coX - 20, coY)) {
                     coX--;
-                } else {
-                    dir = dir.nextDirection();
+                }else{
+                    dir = Direction.getRandomDir();
                 }
+                break;
         }
     }
     /** The tryToMove() function looks at using the switch case statement

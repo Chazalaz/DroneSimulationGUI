@@ -54,15 +54,6 @@ public class GUI_Interface extends Application {
         bpane.setRight(infoPane);
         bpane.setBottom(setButtons());
 
-        new AnimationTimer(){
-            public void handle(long currentNanoTime){
-                if(animation){
-                    battleArena.moveAllDrones();
-                    displaySystem();
-                }
-            }
-        }.start();
-
         primaryStage.setScene(new Scene(bpane, canvasSizeX * 2.5, canvasSizeY * 2.2));
         primaryStage.show();
     }
@@ -99,9 +90,20 @@ public class GUI_Interface extends Application {
 
         start.setOnAction(actionEvent -> {
             animation = true;
+
+            new AnimationTimer(){
+                public void handle(long currentNanoTime){
+                    if(animation){
+                        battleArena.moveAllDrones();
+                        myCan.setFillColour(canvasSizeX, canvasSizeY);
+                        displaySystem();
+                    }
+                }
+            }.start();
+
         });
 
-        start.setOnAction(actionEvent -> {
+        stop.setOnAction(actionEvent -> {
             animation = false;
         });
 
@@ -180,20 +182,6 @@ public class GUI_Interface extends Application {
         alert.setContentText(Content);
         alert.showAndWait();
     }
-
-    public void animation() {
-        int counter = 10;
-        for (int i = 0; i < counter; i++) {
-            battleArena.moveAllDrones();
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 
     public static void main(String[] args) {
         launch(args);

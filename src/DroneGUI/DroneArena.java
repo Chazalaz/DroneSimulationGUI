@@ -48,7 +48,6 @@ public class DroneArena {
             valY = random.nextInt(arenaY);
             d = new Drone(valX, valY, Direction.getRandomDir());
             droneList.add(d);
-
         }
     }
     /** The addDrone function adds a drone to the droneList, it first creates a variable called random through of type
