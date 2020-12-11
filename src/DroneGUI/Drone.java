@@ -93,6 +93,10 @@ public class Drone {
         return coX == X && coY == Y;
     }
 
+    /**
+     * The isHere function checks a set of coordinates to see if there is a drone at the coordinates.
+     */
+
 
     public String toString(){
         return "Drone " + droneID + " is at: " + coX + ", " + coY + "\nWith direction: " + dir.toString() + ".";

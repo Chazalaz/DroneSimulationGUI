@@ -13,10 +13,16 @@ import javafx.scene.text.TextAlignment;
 
 
 public class MyCanvas{
-    int xCanvasSize = 512;				// constants for relevant sizes, default values set
-    int yCanvasSize = 512;
+    int xCanvasSize;				// constants for relevant sizes, default values set
+    int yCanvasSize;
     GraphicsContext gc;
 
+    /**
+     * declaring new varibales to be used.
+     * @param g
+     * @param xcs
+     * @param ycs
+     */
 
     public MyCanvas(GraphicsContext g, int xcs, int ycs) {
         gc = g;
@@ -24,9 +30,18 @@ public class MyCanvas{
         yCanvasSize = ycs;
     }
 
+    /**
+     * unused getters
+     * @return xCanvas Size
+     */
     public int getXCanvasSize() {
         return xCanvasSize;
     }
+
+    /**
+     * unused
+     * @return yCanvasSize
+     */
     public int getYCanvasSize() {
         return yCanvasSize;
     }
@@ -49,6 +64,11 @@ public class MyCanvas{
         gc.drawImage(i, x - sz/2, y - sz/2, sz, sz);
     }
 
+    /**
+     * Set fill colour sets the colour within the window, to show a difference between sections.
+     * @param xCanvasSize
+     * @param yCanvasSize
+     */
     public void setFillColour (int xCanvasSize, int yCanvasSize) {
         gc.setFill(Color.GHOSTWHITE);
         gc.fillRect(0, 0, xCanvasSize, yCanvasSize);
